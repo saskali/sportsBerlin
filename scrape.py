@@ -8,10 +8,9 @@ schools = {
     'HU': 'http://zeh2.zeh.hu-berlin.de/angebote/aktueller_zeitraum/{}',
     'HTW': 'http://sport.htw-berlin.de/angebote/aktueller_zeitraum/{}',
     'BEUTH': 'http://zeh02.beuth-hochschule.de/angebote/aktueller_zeitraum/{}',
+    'UNI POTSDAM': 'http://buchung.hochschulsport-potsdam.de/angebote/aktueller_zeitraum/{}',
 }
 
-courses = dict()
-courses['fu'] = dict()
 locations = dict()
 
 temp = dict()
@@ -87,6 +86,6 @@ try:
                                 writer.writerow([school_name, title, id, tage[i], None, ort, zeitraum, preise, status])
             d += 1
             # if d > 15:
-            break
+            # break
 finally:
     f.close()
