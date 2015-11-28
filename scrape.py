@@ -24,6 +24,8 @@ try:
         lineterminator='\n',
         quoting=csv.QUOTE_NONNUMERIC)
 
+    writer.writerow(['school_name', 'title', 'id', 'tage', 'zeit', 'ort', 'zeitraum', 'preise', 'status'])
+
     for school_name, url in schools.items():
         print(school_name, url)
         soup = BeautifulSoup(requests.get(url.format('index.html')).text, 'html.parser')
