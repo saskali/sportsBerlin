@@ -24,7 +24,7 @@ try:
         lineterminator='\n',
         quoting=csv.QUOTE_NONNUMERIC)
 
-    writer.writerow(['school_name', 'title', 'id', 'tage', 'zeit', 'ort', 'zeitraum', 'preise', 'status'])
+    writer.writerow(['school_name', 'title', 'id', 'tage', 'zeit', 'ort', 'kursleiter', 'zeitraum', 'preise', 'status'])
 
     for school_name, url in schools.items():
         print(school_name, url)
@@ -85,7 +85,7 @@ try:
                             try:
                                 writer.writerow([school_name, title, id, tage[i], zeit[0], ort, zeitraum, preise, status])
                             except:
-                                writer.writerow([school_name, title, id, tage[i], None, ort, zeitraum, preise, status])
+                                writer.writerow([school_name, title, id, tage[i], None, ort, preise, status])
             d += 1
             # if d > 15:
             # break
