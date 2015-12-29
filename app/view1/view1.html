@@ -69,11 +69,11 @@
           </div>
         </div>
         <div class="col-md-9">
-          <div class="list-group" ng-repeat="(key,value) in current">
 
+          <div class="list-group" ng-repeat="(key,value) in current">
               <div class="list-group-item">
               <div class="row-action-primary">
-                <i class="material-icons">folder</i>
+                <i class="material-icons">favorite</i>
               </div>
               <div class="row-content">
                 <div class="least-content"><span class="label label-primary" ng-repeat="time in value.zeit track by $index">{{ value.tage[$index] }} - {{ time }}</span></div>
@@ -83,6 +83,8 @@
             </div>
             <div class="list-group-separator"></div>
           </div>
+
+          <h4 ng-hide="currentLength">Keine Sportkurse gefunden.</h4>
         </div>
       </div>
     </div>

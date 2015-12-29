@@ -14,6 +14,7 @@ angular.module('myApp.view1', ['ngRoute'])
     .controller('View1Ctrl', ['$http', '$scope', function ($http, $scope) {
         $scope.all = {};
         $scope.current = {};
+        $scope.currentLength = 0;
         $scope.searchfield = "";
         $scope.unis = [];
 
@@ -23,13 +24,16 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.searchFieldChange = function() {
           if($scope.searchfield.length == 0){
             $scope.current = $scope.all;
+            $scope.currentLength = 1;
           }
 
           $scope.current = {};
+          $scope.currentLength = 0;
           var data = $scope.all;
           for (var key in data) {
             if (data[key].title.toLowerCase().indexOf($scope.searchfield.toLowerCase()) > -1) {
               $scope.current[key] = data[key];
+              $scope.currentLength += 1;
             }
           }
           console.log($scope.current);
