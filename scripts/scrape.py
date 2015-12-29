@@ -94,6 +94,12 @@ try:
                     results[key]['zeit'] = []
                     results[key]['url'] = course_url
 
+                    print(course_url)
+                    try:
+                        results[key]['description'] = str(s.find_all('div', attrs={'class': 'bs_kursbeschreibung'})[0].contents)
+                    except:
+                        pass
+
                     for i in range(len(tage)):
                         try:
                             results[key]['tage'].append(tage[i])
