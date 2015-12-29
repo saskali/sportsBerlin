@@ -11,6 +11,7 @@ schools = {
     'UNI POTSDAM': 'http://buchung.hochschulsport-potsdam.de/angebote/aktueller_zeitraum/{}',
 }
 
+results = dict()
 locations = dict()
 
 temp = dict()
@@ -43,12 +44,14 @@ try:
 
                     id         = cols[0].text
                     details    = cols[1].text
-                    tage        = cols[2].contents[0::2]
+                    tage       = cols[2].contents[0::2]
                     zeit       = cols[3].contents[0::2]
                     ort        = cols[4].text
                     zeitraum   = cols[5].text
                     kursleiter = cols[6].text
 
+                    zeit = ['' if str(x) == '<br/>' else x for x in zeit]
+                    tage = ['' if str(x) == '<br/>' else x for x in tage]
 
                     # TODO: add geolocations
                     # location_soup = BeautifulSoup(requests.get(urljoin(url, cols[4].find('a').attrs['href'])).text, 'lxml')
@@ -77,17 +80,40 @@ try:
                     else:
                         temp[str(preise)] += 1
 
-                    # print(id, tage, zeit, ort, zeitraum, preise, status)
+                    key = '{}_{}'.format(school_name, id)
+                    results[key] = dict()
+                    results[key]['school_name'] = school_name
+                    results[key]['id'] = id
+                    results[key]['title'] = title
+                    results[key]['zeitraum'] = zeitraum
+                    results[key]['preise'] = preise
+                    results[key]['status'] = status
+                    results[key]['tage'] = []
+                    results[key]['zeit'] = []
+
                     for i in range(len(tage)):
                         try:
+                            results[key]['tage'].append(tage[i])
+                            results[key]['zeit'].append(zeit[i])
                             writer.writerow([school_name, title, id, tage[i], zeit[i], ort, zeitraum, preise, status])
                         except:
                             try:
+                                results[key]['tage'].append(tage[i])
+                                results[key]['zeit'].append(zeit[0])
                                 writer.writerow([school_name, title, id, tage[i], zeit[0], ort, zeitraum, preise, status])
                             except:
+                                results[key]['tage'].append(tage[i])
                                 writer.writerow([school_name, title, id, tage[i], None, ort, preise, status])
             d += 1
+
+            try:
+                tmp = results[key]
+                print(json.dumps(tmp, ensure_ascii=False))
+            except:
+                print('banana')
             # if d > 15:
-            # break
+            #     break
 finally:
     f.close()
+
+json.dump(results, open('courses.json', 'w'), sort_keys=True, indent=2, ensure_ascii=False)
