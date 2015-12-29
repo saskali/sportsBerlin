@@ -1,81 +1,75 @@
-<div class="row ">
-  <div class="col-md-3">
-    LOGO
-  </div>
-  <div class="col-md-9">
-    <div class="form-group is-empty">
-      <input type="text" class="form-control col-md-8" placeholder="Was für einen Sport möchtes du machen?"
-             ng-model="searchfield" ng-change="searchFieldChange()">
-      <span class="material-input"></span>
-    </div>
-  </div>
-</div>
-
-</div>
-<div class="row">
-  <div class="col-md-3">
-    <a href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised">Filter zurücksetzen</a>
-    <div class="panel panel-default">
-      <div class="panel-heading">Wochentag</div>
-      <div class="panel-body">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> montags
-          </label>
+<div class="container-fluid">
+  <div class="row" id="header">
+    <div class="col-md-1">&nbsp;</div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-3">
+          LOGO
         </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> dienstags
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> mittwochs
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> donnerstags
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">Uhrzeit</div>
-      <div class="panel-body">
-        Panel content
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">Uni</div>
-      <div class="panel-body">
-
-        <div class="checkbox" ng-repeat="uni in unis">
-          <label>
-            <input type="checkbox"><span class="checkbox-material"><span class="check"></span> {{ uni }}</span>
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-9">
-    <div class="list-group" ng-repeat="(key,value) in current">
-
-        <div class="list-group-item">
-        <div class="row-action-primary">
-          <i class="material-icons">folder</i>
-        </div>
-        <div class="row-content">
-          <div class="least-content">
-            <div class="label label-primary" ng-repeat="time in value.zeit track by $index">{{ value.tage[$index] }} - {{ time }}</div>
+        <div class="col-md-9">
+          <div class="well">
+              <input type="text" class="form-control col-md-8" placeholder="Was für einen Sport möchtes du machen?"
+                   ng-model="searchfield" ng-change="searchFieldChange()">
+              <span class="material-input"></span>
           </div>
-          <h4 class="list-group-item-heading">{{ value.title }}</h4>
-
-          <p class="list-group-item-text">{{ value.school_name }} | {{ value.ort }}</p>
         </div>
       </div>
-      <div class="list-group-separator"></div>
     </div>
+    <div class="col-md-1">&nbsp;</div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-1">&nbsp;</div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-3">
+          <a href="javascript:void(0)" class="btn btn-default btn-lg btn-block btn-raised">Filter zurücksetzen</a>
+          <div class="panel panel-default">
+            <div class="panel-heading">Wochentag</div>
+            <div class="panel-body">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> montags
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> dienstags
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">Uhrzeit</div>
+            <div class="panel-body">
+              Panel content
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">Uni</div>
+            <div class="panel-body">
+              Panel content
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="list-group" ng-repeat="(key,value) in current">
+
+              <div class="list-group-item">
+              <div class="row-action-primary">
+                <i class="material-icons">folder</i>
+              </div>
+              <div class="row-content">
+                <div class="least-content"><span class="label label-primary" ng-repeat="time in value.zeit track by $index">{{ value.tage[$index] }} - {{ time }}</span></div>
+                <h4 class="list-group-item-heading">{{ value.title }}</h4>
+                <p class="list-group-item-text">{{ value.school_name }} | {{ value.ort }}</p>
+              </div>
+            </div>
+            <div class="list-group-separator"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">&nbsp;</div>
   </div>
 </div>
