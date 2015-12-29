@@ -13,21 +13,6 @@
               <span class="material-input"></span>
           </div>
         </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> mittwochs
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> donnerstags
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> freitags
-          </label>
-        </div>
       </div>
     </div>
     <div class="col-md-1">&nbsp;</div>
@@ -75,7 +60,7 @@
                 <i class="material-icons">folder</i>
               </div>
               <div class="row-content">
-                <div class="least-content">10:00 - 14:00 Uhr <span class="label label-primary" ng-repeat="time in value.zeit track by $index">{{ value.tage[$index] }} - {{ time }}</span></div>
+                <div class="least-content"><span class="label label-primary" ng-repeat="time in value.zeit track by $index">{{ value.tage[$index] }} - {{ time }}</span></div>
                 <h4 class="list-group-item-heading">{{ value.title }}</h4>
                 <p class="list-group-item-text">{{ value.school_name }} | {{ value.ort }}</p>
               </div>
