@@ -1,4 +1,7 @@
 'use strict';
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 angular.module('myApp.view1', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
@@ -13,6 +16,9 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.current = {};
         $scope.searchfield = "";
         $scope.unis = [];
+
+        $scope.maxBackgroundImages = 5;
+        $scope.backgroundId = getRandomInt(1, $scope.maxBackgroundImages + 1);
 
         $scope.searchFieldChange = function() {
           if($scope.searchfield.length == 0){
