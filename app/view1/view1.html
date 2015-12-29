@@ -49,7 +49,12 @@
     <div class="panel panel-default">
       <div class="panel-heading">Uni</div>
       <div class="panel-body">
-        Panel content
+
+        <div class="checkbox" ng-repeat="uni in unis">
+          <label>
+            <input type="checkbox"><span class="checkbox-material"><span class="check"></span> {{ uni }}</span>
+          </label>
+        </div>
       </div>
     </div>
   </div>

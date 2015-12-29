@@ -12,6 +12,7 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.all = {};
         $scope.current = {};
         $scope.searchfield = "";
+        $scope.unis = [];
 
         $scope.searchFieldChange = function() {
           if($scope.searchfield.length == 0){
@@ -28,6 +29,18 @@ angular.module('myApp.view1', ['ngRoute'])
           console.log($scope.current);
         }
 
+        $scope.initUnis = function(){
+            var data = $scope.all;
+            var unis = {}
+            for (var key in $scope.all) {
+                var uni = data[key]['school_name'];
+                unis[uni] = uni;
+            }
+
+            $scope.unis = Object.keys(unis);
+        }
+
+
         // loading data
         $http({
             method: 'GET',
@@ -36,6 +49,8 @@ angular.module('myApp.view1', ['ngRoute'])
         }).success(function (result) {
             $scope.all = result;
             $scope.current = result;
+
+            $scope.initUnis();
         }).error(function (data) {
             console.log("Request failed");
         });
