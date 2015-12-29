@@ -11,6 +11,20 @@ schools = {
     'UNI POTSDAM': 'http://buchung.hochschulsport-potsdam.de/angebote/aktueller_zeitraum/{}',
 }
 
+category_url = 'index_bereiche.html'
+categories = dict()
+for school_name, url in schools.items():
+    soup = BeautifulSoup(requests.get(url.format(category_url)).text, 'html.parser')
+    dl = soup.find_all('dl', attrs={'class': 'bs_menu'})[0]
+    category = ''
+
+    for element in dl.findChildren():
+        if element.name == 'dt':
+            category = element.text.replace(':', '')
+        if element.name == 'a':
+            href = url.format(element.attrs['href'])
+            categories[href] = category
+
 results = dict()
 locations = dict()
 
@@ -93,6 +107,7 @@ try:
                     results[key]['tage'] = []
                     results[key]['zeit'] = []
                     results[key]['url'] = course_url
+                    results[key]['category'] = categories[course_url]
 
                     print(course_url)
                     try:
