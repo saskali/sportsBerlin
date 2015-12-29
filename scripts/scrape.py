@@ -96,7 +96,7 @@ try:
 
                     print(course_url)
                     try:
-                        results[key]['description'] = str(s.find_all('div', attrs={'class': 'bs_kursbeschreibung'})[0].contents)
+                        results[key]['description'] = str(s.find_all('div', attrs={'class': 'bs_kursbeschreibung'})[0].contents[0])
                     except:
                         pass
 
