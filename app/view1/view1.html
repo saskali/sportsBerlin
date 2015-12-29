@@ -42,7 +42,11 @@
           <div class="panel panel-default">
             <div class="panel-heading">Uhrzeit</div>
             <div class="panel-body">
-              Panel content
+              <div class="checkbox" ng-repeat="uni in unis">
+                <label>
+                  <input type="checkbox"><span class="checkbox-material"><span class="check"></span></span> {{ uni }}
+                </label>
+              </div>
             </div>
           </div>
           <div class="panel panel-default">
