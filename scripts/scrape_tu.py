@@ -8,7 +8,7 @@ base_url = 'https://www.tu-sport.de/index.php?id=2472'
 
 soup = BeautifulSoup(requests.get(base_url).text, 'lxml')
 
-results = json.load(open('courses.json', 'r'))
+results = json.load(open('courses.json', 'r', encoding='utf-8'))
 
 f = open('courses_tu.csv', 'wt')
 try:
@@ -36,6 +36,7 @@ try:
 
                     school_name = 'TU'
                     id = parse_qs(href)['cHash'][0]
+                    url = urljoin(base_url, href)
                     tage = None
                     zeit = None
                     ort = None
@@ -76,6 +77,7 @@ try:
 
                     results[key]['tage'].append(tag)
                     results[key]['zeit'].append(zeit)
+                    results[key]['url'] = url
 
 
 
@@ -84,4 +86,4 @@ finally:
     f.close()
 
 
-json.dump(results, open('courses.json', 'w'), sort_keys=True, indent=2, ensure_ascii=False)
+json.dump(results, open('courses.json', 'w', encoding='utf-8'), sort_keys=True, indent=2, ensure_ascii=False)

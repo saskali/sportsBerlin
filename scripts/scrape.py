@@ -43,6 +43,7 @@ try:
                     cols = row.find_all('td')
 
                     id         = cols[0].text
+                    course_url = url.format(href)
                     details    = cols[1].text
                     tage       = cols[2].contents[0::2]
                     zeit       = cols[3].contents[0::2]
@@ -91,6 +92,7 @@ try:
                     results[key]['ort'] = ort
                     results[key]['tage'] = []
                     results[key]['zeit'] = []
+                    results[key]['url'] = course_url
 
                     for i in range(len(tage)):
                         try:
@@ -117,4 +119,4 @@ try:
 finally:
     f.close()
 
-json.dump(results, open('courses.json', 'w'), sort_keys=True, indent=2, ensure_ascii=False)
+json.dump(results, open('courses.json', 'w', encoding='utf-8'), sort_keys=True, indent=2, ensure_ascii=False)
