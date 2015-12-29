@@ -88,6 +88,7 @@ try:
                     results[key]['zeitraum'] = zeitraum
                     results[key]['preise'] = preise
                     results[key]['status'] = status
+                    results[key]['ort'] = ort
                     results[key]['tage'] = []
                     results[key]['zeit'] = []
 

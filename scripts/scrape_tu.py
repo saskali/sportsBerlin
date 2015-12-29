@@ -1,11 +1,14 @@
 import requests
 import json, csv
 from urllib.parse import urljoin
+from urllib.parse import parse_qs
 from bs4 import BeautifulSoup
 
 base_url = 'https://www.tu-sport.de/index.php?id=2472'
 
 soup = BeautifulSoup(requests.get(base_url).text, 'lxml')
+
+results = json.load(open('courses.json', 'r'))
 
 f = open('courses_tu.csv', 'wt')
 try:
@@ -32,13 +35,15 @@ try:
                         continue
 
                     school_name = 'TU'
-                    id = None
+                    id = parse_qs(href)['cHash'][0]
                     tage = None
                     zeit = None
                     ort = None
                     zeitraum = None
                     preise = None
                     status = None
+
+                    print(id, title)
 
                     if len(cols) == 10:
                         zielgruppe = cols[1].find('span').text
@@ -55,8 +60,28 @@ try:
                         zeit = cols[1].text
                         ort = cols[2].text.strip()
 
+                    key = '{}_{}'.format(school_name, id)
+                    results[key] = dict()
+                    results[key]['school_name'] = school_name
+                    results[key]['id'] = id
+                    results[key]['title'] = title
+                    results[key]['zeitraum'] = zeitraum
+                    results[key]['preise'] = preise
+                    results[key]['status'] = status
+                    results[key]['ort'] = ort
+                    if 'tage' not in results[key]:
+                        results[key]['tage'] = []
+                    if 'zeit' not in results[key]:
+                        results[key]['zeit'] = []
+
+                    results[key]['tage'].append(tag)
+                    results[key]['zeit'].append(zeit)
+
+
+
                     writer.writerow([school_name, title, id, tage, zeit, ort, zeitraum, preise, status])
 finally:
     f.close()
 
 
+json.dump(results, open('courses.json', 'w'), sort_keys=True, indent=2, ensure_ascii=False)
