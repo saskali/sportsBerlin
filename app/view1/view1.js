@@ -9,14 +9,32 @@ angular.module('myApp.view1', ['ngRoute'])
     }])
 
     .controller('View1Ctrl', ['$http', '$scope', function ($http, $scope) {
-        $scope.data = null;
+        $scope.all = {};
+        $scope.current = {};
+        $scope.searchfield = "";
+
+        $scope.searchFieldChange = function() {
+          if($scope.searchfield.length == 0){
+            $scope.current = $scope.all;
+          }
+
+          $scope.current = {};
+          var data = $scope.all;
+          for (var key in data) {
+            if (data[key].title.toLowerCase().indexOf($scope.searchfield.toLowerCase()) > -1) {
+              $scope.current[key] = data[key];
+            }
+          }
+          console.log($scope.current);
+        }
 
         // loading data
         $http({
             method: 'GET',
             url: "./data/courses.json"
         }).success(function (result) {
-            $scope.data = result;
+            $scope.all = result;
+            $scope.current = result;
         }).error(function (data) {
             console.log("Request failed");
         });
