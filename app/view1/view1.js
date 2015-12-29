@@ -31,7 +31,8 @@ angular.module('myApp.view1', ['ngRoute'])
         // loading data
         $http({
             method: 'GET',
-            url: "./data/courses.json"
+            url: "./data/courses.json",
+            header : {'Content-Type' : 'application/json; charset=UTF-8'}
         }).success(function (result) {
             $scope.all = result;
             $scope.current = result;

@@ -39,17 +39,19 @@
       </div>
     </div>
   </div>
+
   <div class="col-md-9">
-    <div class="list-group">
-      <div class="list-group-item">
+    <div class="list-group" ng-repeat="(key,value) in current">
+
+        <div class="list-group-item">
         <div class="row-action-primary">
           <i class="material-icons">folder</i>
         </div>
         <div class="row-content">
           <div class="least-content">10:00 - 14:00 Uhr <span class="label label-primary">montags</span></div>
-          <h4 class="list-group-item-heading">Name des Kurses</h4>
+          <h4 class="list-group-item-heading">{{ value.title }}</h4>
 
-          <p class="list-group-item-text">FU Berlin | Adresse von dem Kurs</p>
+          <p class="list-group-item-text">{{ value.school_name }} | {{ value.ort }}</p>
         </div>
       </div>
       <div class="list-group-separator"></div>
