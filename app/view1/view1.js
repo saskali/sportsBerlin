@@ -47,7 +47,24 @@ angular.module('myApp.view1', ['ngRoute'])
 
 
             // uni filtering
+            // check if uni filtering is even needed. If every checkbox is checked or unchecked no filtering is applied.
+            var uniTmp = Object.keys($scope.unis).map(function(key){return $scope.unis[key];});
+            var allSame = true;
+            for(var i=0; i < uniTmp.length - 1; i++){
+                if (uniTmp[i] != uniTmp[i+1]){allSame = false; break;}
+            }
 
+            // if all values not same, filter
+            if(!allSame){
+                var selected = Object.keys($scope.unis).filter(function(v){return $scope.unis[v]});
+                var tmp = {}
+                for (var key in current) {
+                    if (selected.indexOf(current[key].school_name) > -1) {
+                        tmp[key] = current[key];
+                    }
+                }
+                current = tmp;
+            }
 
             // apply filter
             $scope.current = current;
