@@ -16,10 +16,15 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.current = {};
         $scope.currentLength = 0;
         $scope.searchfield = "";
-        $scope.unis = [];
+        $scope.unis = {};
 
         $scope.maxBackgroundImages = 5;
         $scope.backgroundId = getRandomInt(1, $scope.maxBackgroundImages + 1);
+
+        $scope.toggleUni = function(uni){
+            $scope.unis[uni] = !$scope.unis[uni];
+            //todo filter results after university
+        }
 
         $scope.searchFieldChange = function() {
           if($scope.searchfield.length == 0){
@@ -40,14 +45,10 @@ angular.module('myApp.view1', ['ngRoute'])
         }
 
         $scope.initUnis = function(){
-            var data = $scope.all;
-            var unis = {}
             for (var key in $scope.all) {
-                var uni = data[key]['school_name'];
-                unis[uni] = uni;
+                var uni = $scope.all[key]['school_name'];
+                $scope.unis[uni] = false;
             }
-
-            $scope.unis = Object.keys(unis);
         }
 
 
