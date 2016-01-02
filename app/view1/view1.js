@@ -12,6 +12,7 @@ angular.module('myApp.view1', ['ngRoute'])
     }])
 
     .controller('View1Ctrl', ['$http', '$scope', function ($http, $scope) {
+        $scope.elementsPerPage = 20;
         $scope.all = {};
         $scope.current = {};
         $scope.currentLength = 0;
@@ -32,23 +33,20 @@ angular.module('myApp.view1', ['ngRoute'])
 
         $scope.refreshFilter = function(){
             var current = $scope.all;
-            var tmp = {};
 
             // search field filtering
             var searchField = $scope.searchfield;
             if(searchField.length > 0){
-                for (var key in current) {
-                    if (current[key].title.toLowerCase().indexOf(searchField.toLowerCase()) > -1) {
-                        tmp[key] = current[key];
-                    }
-                }
-                current = tmp;
+                // filter elements out who do not contain the string in the searchField
+                current = current.filter(function(value){
+                    return _.contains(value.title.toLowerCase(), searchField.toLowerCase());
+                });
             }
 
 
             // uni filtering
             // check if uni filtering is even needed. If every checkbox is checked or unchecked no filtering is applied.
-            var uniTmp = Object.keys($scope.unis).map(function(key){return $scope.unis[key];});
+            var uniTmp = _.values($scope.unis);
             var allSame = true;
             for(var i=0; i < uniTmp.length - 1; i++){
                 if (uniTmp[i] != uniTmp[i+1]){allSame = false; break;}
@@ -56,14 +54,9 @@ angular.module('myApp.view1', ['ngRoute'])
 
             // if all values not same, filter
             if(!allSame){
-                var selected = Object.keys($scope.unis).filter(function(v){return $scope.unis[v]});
-                var tmp = {}
-                for (var key in current) {
-                    if (selected.indexOf(current[key].school_name) > -1) {
-                        tmp[key] = current[key];
-                    }
-                }
-                current = tmp;
+                current = current.filter(function(value){
+                    return _.contains(selected, element.school_name);
+                });
             }
 
             // apply filter
@@ -71,10 +64,9 @@ angular.module('myApp.view1', ['ngRoute'])
         }
 
         $scope.initUnis = function(){
-            for (var key in $scope.all) {
-                var uni = $scope.all[key]['school_name'];
-                $scope.unis[uni] = true;
-            }
+            $scope.all.forEach(function(value, index, arr){
+                $scope.unis[value.school_name] = true;
+            });
         }
 
 
@@ -84,10 +76,13 @@ angular.module('myApp.view1', ['ngRoute'])
             url: "./data/courses.json",
             header : {'Content-Type' : 'application/json; charset=UTF-8'}
         }).success(function (result) {
+            result =  _.values(result);//remove when lukas changes the data.json to an arraz
             $scope.all = result;
-            $scope.current = result;
-
             $scope.initUnis();
+
+            $scope.refreshFilter();
+
+
         }).error(function (data) {
             console.log("Request failed");
         });
