@@ -23,31 +23,40 @@ angular.module('myApp.view1', ['ngRoute'])
 
         $scope.toggleUni = function(uni){
             $scope.unis[uni] = !$scope.unis[uni];
-            //todo filter results after university
+            $scope.refreshFilter();
         }
 
         $scope.searchFieldChange = function() {
-          if($scope.searchfield.length == 0){
-            $scope.current = $scope.all;
-            $scope.currentLength = 1;
-          }
+            $scope.refreshFilter();
+        }
 
-          $scope.current = {};
-          $scope.currentLength = 0;
-          var data = $scope.all;
-          for (var key in data) {
-            if (data[key].title.toLowerCase().indexOf($scope.searchfield.toLowerCase()) > -1) {
-              $scope.current[key] = data[key];
-              $scope.currentLength += 1;
+        $scope.refreshFilter = function(){
+            var current = $scope.all;
+            var tmp = {};
+
+            // search field filtering
+            var searchField = $scope.searchfield;
+            if(searchField.length > 0){
+                for (var key in current) {
+                    if (current[key].title.toLowerCase().indexOf(searchField.toLowerCase()) > -1) {
+                        tmp[key] = current[key];
+                    }
+                }
+                current = tmp;
             }
-          }
-          console.log($scope.current);
+
+
+            // uni filtering
+
+
+            // apply filter
+            $scope.current = current;
         }
 
         $scope.initUnis = function(){
             for (var key in $scope.all) {
                 var uni = $scope.all[key]['school_name'];
-                $scope.unis[uni] = false;
+                $scope.unis[uni] = true;
             }
         }
 
