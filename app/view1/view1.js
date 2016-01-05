@@ -55,7 +55,7 @@ angular.module('myApp.view1', ['ngRoute'])
             // if all values not same, filter
             if(!allSame){
                 current = current.filter(function(value){
-                    return _.contains(selected, element.school_name);
+                    return $scope.unis[value.school_name];
                 });
             }
 
