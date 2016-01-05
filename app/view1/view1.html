@@ -70,7 +70,7 @@
         </div>
         <div class="col-md-9">
 
-          <div class="list-group" ng-repeat="(key,value) in current">
+          <div class="list-group" dir-paginate="value in current | itemsPerPage: elementsPerPage">
               <div class="list-group-item">
               <div class="row-action-primary">
                 <i class="material-icons">favorite</i>
@@ -84,7 +84,12 @@
             <div class="list-group-separator"></div>
           </div>
 
-          <h4 ng-hide="current.length == 0">Keine Sportkurse gefunden.</h4>
+          <dir-pagination-controls
+                  max-size="10"
+                  direction-links="true"
+                  boundary-links="true" >
+          </dir-pagination-controls>
+          <h4 ng-hide="current.length > 0">Keine Sportkurse gefunden.</h4>
         </div>
       </div>
     </div>

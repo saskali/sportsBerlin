@@ -12,7 +12,7 @@ angular.module('myApp.view1', ['ngRoute'])
     }])
 
     .controller('View1Ctrl', ['$http', '$scope', function ($http, $scope) {
-        $scope.elementsPerPage = 20;
+        $scope.elementsPerPage = 10;
         $scope.all = {};
         $scope.current = {};
         $scope.currentLength = 0;
